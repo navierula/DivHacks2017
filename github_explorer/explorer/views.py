@@ -5,33 +5,84 @@ from django.shortcuts import render
 from django.template import loader
 from django.conf import settings
 import os
+from django.views.decorators.csrf import csrf_exempt
+
+import csv
+import json
+import pandas as pd
 
 import sqlite3
 
+@csrf_exempt
 def index(request):
-    template = loader.get_template('explorer/base.html')
-    conn = sqlite3.connect(os.path.join(settings.BASE_DIR, 'github.db'))
-    d = conn.execute('select count(*) from github')
-    l = []
-    for d1 in d:
-        l.append(d1)
-    w = conn.execute('select count(*) from github where has_woman=\'True\'')
-    lw = []
-    for w1 in w:
-        lw.append(w1)
-    men_cnt = l[0][0] - lw[0][0]
-    women_cnt = lw[0][0]
-    #context = {'test': l[0][0], 'men_cnt': men_cnt, 'women_cnt': women_cnt}
-    conn.close()
+    languages = getLangs()
 
-    charttemplate = loader.get_template('explorer/doughnutchart.html')
-    charts = []
-    for i in range(0, 4):
-        chartcontext = {'chartid': 'chart' + str(i), 'charttitle': 'Gender ratio', 'labels': ['Male', 'Female'], 'data': [men_cnt, women_cnt], 'colors': ["#FF6384", "#36A2EB"], 'hcolors': ["#FF6384", "#36A2EB"]}
-        chartrender = charttemplate.render(chartcontext)
-        charts.append(chartrender)
-    context = {'charts': charts}
+    if request.method == 'POST':
+        language = request.POST['language']
+        template = loader.get_template('explorer/base.html')
+
+        color_list = ['#E91E63', '#9C27B0', '#673AB7', '#3F51B5',
+            '#2196F3', '#FFC107', '#FF5722', '#03A9F4', '#00BCD4',
+            '#8BC34A']
+        bcolor_list = ['#EC407A', '#AB47BC', '#7E57C2', '#5C6BC0',
+            '#42A5F5', '#FFCA28', '#FF7043', '#29B6F6', '#26C6DA',
+            '#9CCC65']
+
+        for lang in languages:
+            if lang[0] == language:
+                lang[1] = 'selected'
+
+        d = getCounts(language)[language]
+        piechart = loader.get_template('explorer/doughnutchart.html')
+        piecontext = {'chartid': 'chart1', 'labels': ['Female', 'Male'],
+            'data': d, 'colors': color_list[0:len(d)], 'hcolors': color_list[0:len(d)],
+            'charttitle': 'Gender ratio for ' + language}
+        piepiece = piechart.render(piecontext)
+        context = {'charts': [[piepiece]], 'languages': languages}
+        return render(request, 'explorer/base.html', context)
+
+    context = {'languages': languages}
 
     return render(request, 'explorer/base.html', context)
+
+
+def getCounts(language):
+    file = os.path.join(settings.BASE_DIR, 'github.csv')
+    datFrame =  pd.read_csv(file, sep=';')
+    df = datFrame[datFrame['language'] == language]
+    df = df[["language","genders"]]
+    d = {}
+
+    for index, row in df.iterrows():
+        totalfCount = []
+        totalmCount = []
+        language = row['language']
+        genders = row['genders']
+        genderArray = genders.split()
+        for gender in genderArray:
+            fCount = gender.count("female")
+            totalfCount.append(fCount)
+            mCount = gender.count("male")
+            totalmCount.append(mCount)
+
+            if language in d:
+                femaleCount,maleCount = d.get(language)
+                newMaleCount = maleCount + totalmCount[0]
+                newFemaleCount = femaleCount + totalfCount[0]
+                d.update({language: (newFemaleCount, newMaleCount)})
+            else:
+                d.update({language: (totalfCount[0], totalmCount[0])} )
+
+    print(d)
+    return d
+
+
+def getLangs():
+    return [['Perl', ''], ['Objective-C', '']]
+
+
+def getNations():
+    return [['united states', ''], ['australia', '']]
+
 
 # Create your views here.

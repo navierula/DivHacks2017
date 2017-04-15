@@ -13,10 +13,12 @@
 
   <body>
     <header>
-      <nav class="top-nav">
+      <nav class="top-nav" style="height:95px">
         <div class="container">
           <div class="nav-wrapper">
-            <a class="page-title" href="">GitHub Explorer</a>
+            <div class="valign-wrapper">
+              <h3><a class="page-title">GitHub Explorer</a></h3>
+            </div>
           </div>
         </div>
       </nav>
@@ -28,43 +30,36 @@
             <img src="/static/explorer/logo.png" style="height:150px"/></a></li>
         </div>
         <div class="row" style="padding-top:100px">
-          <form name="filters">
+          <form name="filters" action="/explorer/" method="POST">
             <div class="input-field col s12">
-              <select>
-                <option value="1">1</option>
-                <option value="2">1</option>
+              <select name="language" id="language">
+                {% for lang in languages %}
+                <option value="{{ lang.0 }}" {{ lang.1 }}>{{ lang.0 }}</option>
+                {% endfor %}
               </select>
-              <label>Whatever</label>
+              <label for="language">Programming Language</label>
             </div>
             <div class="input-field col s12">
-              <select>
-                <option value="1">1</option>
-                <option value="2">1</option>
+              <select name="nationality" id="nationality">
+                {% for nation in nations %}
+                <option value="{{ nation.0 }}" {{ nation.1 }}>{{ nation.0 }}</option>
+                {% endfor %}
               </select>
-              <label>Whatever</label>
+              <label for="nationality">Nationality</label>
             </div>
             <div class="input-field col s12">
-              <select>
-                <option value="1">1</option>
-                <option value="2">1</option>
-              </select>
-              <label>Whatever</label>
+              <input value="{{starty}}" id="start_year" type="number"></input>
+              <label for="start_year">From Year</label>
             </div>
             <div class="input-field col s12">
-              <select>
-                <option value="1">1</option>
-                <option value="2">1</option>
-              </select>
-              <label>Whatever</label>
+              <input value="{{endy}}" id="end_year" type="number"></input>
+              <label for="end_year">To Year</label>
             </div>
             <div class="input-field col s12">
-              <select>
-                <option value="1">1</option>
-                <option value="2">1</option>
-              </select>
-              <label>Whatever</label>
+              <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+              </button>
             </div>
-
           </form>
         </div>
       </ul>
@@ -72,16 +67,19 @@
 
     <main>
 
-      {% for chart in charts %}
+      {% for chartpair in charts %}
 
       <div class="row">
-        <div class="col m6">
-          <div class="card">
-            <div class="card-content">
-              {{ chart|safe }}
+
+        {% for chart in chartpair %}
+          <div class="col m6">
+            <div class="card">
+              <div class="card-content">
+                {{ chart|safe }}
+              </div>
             </div>
           </div>
-        </div>
+        {% endfor %}
       </div>
 
       {% endfor %}
