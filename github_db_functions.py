@@ -11,6 +11,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import itertools
 import numpy as np
+from collections import Counter
 
 # read in dataset
 df = pd.read_csv("data_sources/GitHub_Terms_Data.csv", sep=';', encoding='ISO-8859-1')
@@ -58,8 +59,36 @@ def languages_by_gender(df):
     
     return languages
 
+# returns a list of all languages used 
 def language_list(df):
     languages = []
     for val in df["language"]:
         languages.append(val)
     return sorted(list(set(languages)))
+
+# returns dict_items of countributions by country in numbers
+def contributions_by_country(df):
+    countries_list = []
+    for val in df["countries"]:
+        splits = val.split(",")
+        countries_list.append(splits)
+    entire_list = [item for sublist in countries_list for item in sublist if item != "None"]
+    c = Counter(entire_list)
+    return c.items()
+
+# returns list of countries in alphabetical order
+def countries_list(df):
+    countries_list = []
+    for val in df["countries"]:
+        splits = val.split(",")
+        countries_list.append(splits)
+    entire_list = [item for sublist in countries_list for item in sublist if item != "None"]
+    entire_list = list(set(entire_list))
+    return sorted(entire_list)
+    
+    
+
+    
+
+    
+
