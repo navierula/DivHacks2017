@@ -7,28 +7,8 @@
     <meta name="theme-color" content="#2196F3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-    header, main, footer {
-      padding-left: 300px;
-    }
-
-    @media only screen and (max-width : 992px) {
-      header, main, footer {
-        padding-left: 0;
-      }
-    }
-
-    body {
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
-    }
-
-    main {
-      flex: 1 0 auto;
-    }
-    </style>
-
+    <link href="/static/explorer/offset.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
   </head>
 
   <body>
@@ -97,7 +77,6 @@
             <div class="card-content">
               <span class="card-title">{{test}}</span>
               <canvas id="chart1" width="200" height="200"></canvas>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
               <script>
                 var ctx = document.getElementById("chart1");
                 var data = {
