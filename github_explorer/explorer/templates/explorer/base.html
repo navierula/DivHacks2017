@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub Explorer</title>
+    <meta name="theme-color" content="#2196F3">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+    header, main, footer {
+      padding-left: 300px;
+    }
+
+    @media only screen and (max-width : 992px) {
+      header, main, footer {
+        padding-left: 0;
+      }
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav class="top-nav">
+        <div class="container">
+          <div class="nav-wrapper">
+            <a class="page-title" href="">GitHub Explorer</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a></div>
+      <ul id="nav-mobile" class="side-nav fixed">
+        <div class="row">
+        <li class="logo"><a id="logo-container" class="brand-logo">
+            <img src="/static/explorer/logo.png" style="height:150px"/></a></li>
+        </div>
+        <div class="row" style="padding-top:100px">
+          <form name="filters">
+            <div class="input-field col s12">
+              <select>
+                <option value="1">1</option>
+                <option value="2">1</option>
+              </select>
+              <label>Whatever</label>
+            </div>
+            <div class="input-field col s12">
+              <select>
+                <option value="1">1</option>
+                <option value="2">1</option>
+              </select>
+              <label>Whatever</label>
+            </div>
+            <div class="input-field col s12">
+              <select>
+                <option value="1">1</option>
+                <option value="2">1</option>
+              </select>
+              <label>Whatever</label>
+            </div>
+            <div class="input-field col s12">
+              <select>
+                <option value="1">1</option>
+                <option value="2">1</option>
+              </select>
+              <label>Whatever</label>
+            </div>
+            <div class="input-field col s12">
+              <select>
+                <option value="1">1</option>
+                <option value="2">1</option>
+              </select>
+              <label>Whatever</label>
+            </div>
+
+          </form>
+        </div>
+      </ul>
+    </header>
+
+    <main>
+
+    </main>
+
+
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col m12 white-text">
+            <p>Aditi Hudli, Harry Zhang, Navie Narula, Ravie Lakshmanan</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".button-collapse").sideNav();
+        $('select').material_select();
+      })
+    </script>
+  </body>
