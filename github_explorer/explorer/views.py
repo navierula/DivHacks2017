@@ -21,8 +21,17 @@ def index(request):
         lw.append(w1)
     men_cnt = l[0][0] - lw[0][0]
     women_cnt = lw[0][0]
-    context = {'test': l[0][0], 'men_cnt': men_cnt, 'women_cnt': women_cnt}
+    #context = {'test': l[0][0], 'men_cnt': men_cnt, 'women_cnt': women_cnt}
     conn.close()
+
+    charttemplate = loader.get_template('explorer/doughnutchart.html')
+    charts = []
+    for i in range(0, 4):
+        chartcontext = {'chartid': 'chart' + str(i), 'charttitle': 'Gender ratio', 'labels': ['Male', 'Female'], 'data': [men_cnt, women_cnt], 'colors': ["#FF6384", "#36A2EB"], 'hcolors': ["#FF6384", "#36A2EB"]}
+        chartrender = charttemplate.render(chartcontext)
+        charts.append(chartrender)
+    context = {'charts': charts}
+
     return render(request, 'explorer/base.html', context)
 
 # Create your views here.
