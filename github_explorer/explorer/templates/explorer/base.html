@@ -71,41 +71,21 @@
     </header>
 
     <main>
+
+      {% for chart in charts %}
+
       <div class="row">
         <div class="col m6">
           <div class="card">
             <div class="card-content">
-              <span class="card-title">{{test}}</span>
-              <canvas id="chart1" width="200" height="200"></canvas>
-              <script>
-                var ctx = document.getElementById("chart1");
-                var data = {
-                      labels: [
-                          "Men",
-                          "Women"
-                      ],
-                      datasets: [
-                          {
-                              data: [{{men_cnt}}, {{women_cnt}}],
-                              backgroundColor: [
-                                  "#FF6384",
-                                  "#36A2EB"
-                              ],
-                              hoverBackgroundColor: [
-                                  "#FF6384",
-                                  "#36A2EB"
-                              ]
-                          }]
-                  };
-                  var chart1 = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: data
-                  });
-                </script>
+              {{ chart|safe }}
             </div>
           </div>
         </div>
       </div>
+
+      {% endfor %}
+
     </main>
 
 

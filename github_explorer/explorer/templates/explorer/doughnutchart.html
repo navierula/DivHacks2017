@@ -1,0 +1,37 @@
+<canvas id="{{ chartid }}" width="200" height="200"></canvas>
+<script>
+  var ctx = document.getElementById("{{ chartid }}")
+  var data = {
+        labels: [
+            {% for l in labels %}
+              "{{ l }}",
+            {% endfor %}
+        ],
+        datasets: [
+            {
+                data: [
+                  {% for entry in data %}
+                    {{ entry }},
+                  {% endfor %}
+                ],
+                backgroundColor: [
+                    {% for color in colors %}
+                      "{{ color }}",
+                    {% endfor %}
+                ],
+                hoverBackgroundColor: [
+                  {% for color in hcolors %}
+                    "{{ color }}",
+                  {% endfor %}
+                ]
+            }]
+    };
+  var {{chartid}} = new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    title: {
+      display: true,
+      text: "{{ charttitle }}"
+    }
+  });
+</script>
