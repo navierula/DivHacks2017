@@ -28,6 +28,7 @@
       flex: 1 0 auto;
     }
     </style>
+
   </head>
 
   <body>
@@ -90,7 +91,42 @@
     </header>
 
     <main>
-
+      <div class="row">
+        <div class="col m6">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">{{test}}</span>
+              <canvas id="chart1" width="200" height="200"></canvas>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
+              <script>
+                var ctx = document.getElementById("chart1");
+                var data = {
+                      labels: [
+                          "Men",
+                          "Women"
+                      ],
+                      datasets: [
+                          {
+                              data: [{{men_cnt}}, {{women_cnt}}],
+                              backgroundColor: [
+                                  "#FF6384",
+                                  "#36A2EB"
+                              ],
+                              hoverBackgroundColor: [
+                                  "#FF6384",
+                                  "#36A2EB"
+                              ]
+                          }]
+                  };
+                  var chart1 = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data
+                  });
+                </script>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
 
