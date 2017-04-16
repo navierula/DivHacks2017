@@ -17,7 +17,7 @@
         <div class="container">
           <div class="nav-wrapper">
             <div class="valign-wrapper">
-              <h3><a class="page-title">GitHub Explorer</a></h3>
+              <h3><a class="page-title">GitHub Explorer: {{ theme }}</a></h3>
             </div>
           </div>
         </div>
@@ -25,6 +25,7 @@
 
       <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a></div>
       <ul id="nav-mobile" class="side-nav fixed">
+        {% if is_gender > 0 %}
         <div class="row" style="padding-top:200px">
           <form name="filters" action="/explorer/" method="POST">
             <div class="input-field col s12">
@@ -34,14 +35,6 @@
                 {% endfor %}
               </select>
               <label for="language">Programming Language</label>
-            </div>
-            <div class="input-field col s12">
-              <select name="nationality" id="nationality">
-                {% for nation in nations %}
-                <option value="{{ nation.0 }}" {{ nation.1 }}>{{ nation.0 }}</option>
-                {% endfor %}
-              </select>
-              <label for="nationality">Nationality</label>
             </div>
             <div class="input-field col s12">
               <input value="{{starty}}" id="start_year" name="start_year" type="number"></input>
@@ -58,6 +51,28 @@
             </div>
           </form>
         </div>
+
+        <div class="row">
+          <div class="col s12">
+            <a class="btn waves-effect" href="/explorer/bynation" target="_blank">See by Country</a></li>
+          </div>
+        </div>
+
+        {% else %}
+
+        <div class="row" style="padding-top:200px">
+          <div class="col s12">
+            <a class="btn waves-effect" href="/explorer/bynation?action=0">Scroll Up</a></li>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <a class="btn waves-effect" href="/explorer/bynation?action=1">Scroll Down</a></li>
+          </div>
+        </div>
+
+        {% endif %}
       </ul>
     </header>
 
@@ -87,7 +102,7 @@
       <div class="container">
         <div class="row">
           <div class="col m12 white-text">
-            <p>Aditi Hudli, Harry Zhang, Navie Narula, Ravie Lakshmanan</p>
+            <p>&copy Aditi Hudli, Harry Zhang, Navie Narula, Ravie Lakshmanan</p>
           </div>
         </div>
       </div>

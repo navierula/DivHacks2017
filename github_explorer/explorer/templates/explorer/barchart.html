@@ -1,46 +1,38 @@
-<canvas id="{{ chartid }}" width="400" height="400"></canvas>
+<span class="card-title">{{ charttitle }}</span>
+<canvas id="{{ chartid }}" width="100" height="100"></canvas>
 <script>
-var ctx = document.getElementById("{{ chartid }}");
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: [
-          {% for l in labels %}
-            "{{ l }}",
-          {% endfor %}
-      ],
-        datasets: [{
-            label: '{{ label }}',
-            data: [
-              {% for entry in data %}
-                {{ entry }},
-              {% endfor %}
-            ],
-            backgroundColor: [
-                {% for color in colors %}
-                  "{{ color }}",
-                {% endfor %}
-            ],
-            hoverBackgroundColor: [
-              {% for color in hcolors %}
-                "{{ color }}",
-              {% endfor %}
-            ]
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
+  var ctx = document.getElementById("{{ chartid }}")
+  var data = {
+        labels: [
+            {% for l in labels %}
+              "{{ l }}",
+            {% endfor %}
+        ],
+        datasets: [
+            {
+                data: [
+                  {% for entry in data %}
+                    {{ entry }},
+                  {% endfor %}
+                ],
+                backgroundColor: [
+                    {% for color in colors %}
+                      "{{ color }}",
+                    {% endfor %}
+                ],
+                hoverBackgroundColor: [
+                  {% for color in hcolors %}
+                    "{{ color }}",
+                  {% endfor %}
+                ]
             }]
-        }
-    }
+    };
+  var {{chartid}} = new Chart(ctx, {
+    type: 'bar',
+    data: data,
     title: {
       display: true,
-      title: {{ charttitle }},
+      text: "{{ charttitle }}"
     }
-});
+  });
 </script>
