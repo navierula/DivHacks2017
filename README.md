@@ -18,5 +18,5 @@ Javascript, Ruby and Python are the top three languages used for the posted code
 
 When analysing this data we need to be aware of the fact that not everyone is forthcoming with the information required to to appropriately analyze the data such as, gender, and location.
 
-Despite reports of hte growing presence of women in Silicon Valley and in the Tech industry, there is still a long way to go. 
+Despite reports of the growing presence of women in Silicon Valley and in the Tech industry, there is still a long way to go. 
 
