@@ -2,7 +2,7 @@
 
 ## Citations
 
-Github Terms Data 
+Github Terms Data <br />
 https://github.com/bvasiles/diversity <br />
 https://diversity.github.com/ <br/>
 https://peerj.com/preprints/1733/ <br />
